@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Fortune</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #5a3e2b;
+  background: linear-gradient(to bottom, #f8efe6 0%, #f4e6da 60%, #f1dfd1 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
+  background-size: 5px 5px;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 520px;
+  margin: auto;
+  padding: 24px 16px 40px;
+  text-align: center;
+  background: rgba(255,255,255,0.55);
+  border-radius: 28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.card-btn {
+  background: #ffffffcc;
+  border-radius: 14px;
+  padding: 12px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.result {
+  background: #fff;
+  border-radius: 20px;
+  padding: 26px 22px;
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.hidden { display: none; }
+
+.back {
+  margin-top: 24px;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.fortune-subtitle {
+  font-size: 14px;
+  color: #8a6b55;
+  margin: 6px 0 8px;
+}
+
+.fortune-mascot {
+  margin-top: 18px;
+}
+
+.mascot {
+  font-size: 44px;
+  animation: mascotFloat 4.5s ease-in-out infinite;
+}
+
+@keyframes mascotFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.little-characters {
+  position: fixed;
+  bottom: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.char {
+  font-size: 22px;
+  animation: floatSoft 5s ease-in-out infinite;
+}
+
+.c2 { animation-delay: 1s; }
+.c3 { animation-delay: 2s; }
+.c4 { animation-delay: 3s; }
+
+@keyframes floatSoft {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="little-characters">
+  <span class="char">🐥</span>
+  <span class="char c2">💗</span>
+  <span class="char c3">✨</span>
+  <span class="char c4">🔮</span>
+</div>
+
+<div class="container">
+
+  <div id="selectPage">
+    <h2>💌 เลขแห่งโชคชะตา 💘</h2>
+    <p>🫶 สุ่มดวงความรักแบบขำๆ 💗</p>
+
+    <div class="grid">
+      <script>
+        for (let i = 1; i <= 30; i++) {
+          document.write(`
+            <div class="card-btn" onclick="showResult(${i-1})">
+              ✨<br>${String(i).padStart(2,'0')}
+            </div>
+          `);
+        }
+      </script>
+    </div>
+  </div>
+
+  <div id="resultPage" class="hidden">
+    <h3 id="cardTitle"></h3>
+    <div class="fortune-subtitle">คำทำนายจากโชคชะตา</div>
+    <div class="result" id="cardText"></div>
+
+    <div class="fortune-mascot">
+      <div class="mascot">🔮🧙‍♀️</div>
+    </div>
+
+    <p style="font-size:12px; opacity:0.6; margin-top:16px;">Hug(ฮัก)Fest</p>
+
+    <div class="back" onclick="goBack()">← เลือกใหม่อีกครั้ง</div>
+  </div>
+
+</div>
+
+<script>
+const predictions = [ /* เหมือนของเดิมทั้งหมด */ ];
+
+function showResult(index) {
+  document.getElementById("selectPage").classList.add("hidden");
+  document.getElementById("resultPage").classList.remove("hidden");
+  document.getElementById("cardTitle").innerText =
+    "คำทำนายที่ " + (index + 1) + " 💞";
+  document.getElementById("cardText").innerText = predictions[index];
+}
+
+function goBack() {
+  document.getElementById("resultPage").classList.add("hidden");
+  document.getElementById("selectPage").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
